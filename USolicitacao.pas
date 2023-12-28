@@ -11,11 +11,13 @@ Type
     FUsuario : String;
     FDescricao : String;
     FSolicitacao : String;
+    FImagem : string;
   public
     Property Id : Integer read FId write FId;
     Property Usuario : String read FUsuario write FUsuario;
     Property Descricao : String read FDescricao write FDescricao;
     Property Solicitacao : String read FSolicitacao write FSolicitacao;
+    Property Imagem : string read FImagem write FImagem;
 
     Function incluir : Boolean;
   end;
@@ -38,13 +40,15 @@ begin
     '           (Usuario                '+
     '           ,Descricao_Solicitacao  '+
     '           ,Texto_Solicitacao      '+
+    '           ,Imagem                 '+
     '                           )       ';
 
     sqlValues :=
     '   VALUES (                         '+
-    '           :Usuario                '+
+    '           :Usuario                 '+
     '           ,:Descricao_Solicitacao  '+
     '           ,:Texto_Solicitacao      '+
+    '           ,:Imagem                 '+
     '                           )        ';
 
     sqlInsert:= sqlCampos + sqlValues;
@@ -55,6 +59,7 @@ begin
     DmSolicitacao.qSolicitacao.Parameters.ParamByName('Usuario').Value := Self.Usuario;
     DmSolicitacao.qSolicitacao.Parameters.ParamByName('Descricao_Solicitacao').Value := Self.Descricao;
     DmSolicitacao.qSolicitacao.Parameters.ParamByName('Texto_Solicitacao').Value := Self.Solicitacao;
+    DmSolicitacao.qSolicitacao.Parameters.ParamByName('Imagem').Value := Self.Imagem;
 
     DmSolicitacao.qSolicitacao.ExecSQL;
 

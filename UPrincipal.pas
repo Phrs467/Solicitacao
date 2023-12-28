@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,UDmSolicitacao,USolicitacao,
-  Vcl.ExtCtrls, Vcl.Menus, Vcl.ExtDlgs;
+  Vcl.ExtCtrls, Vcl.Menus, Vcl.ExtDlgs, Vcl.Buttons, jpeg, PngImage,
+  dxGDIPlusClasses;
 
 type
   TFormSolicitacao = class(TForm)
@@ -27,9 +28,10 @@ type
     MainMenu1: TMainMenu;
     Sistema1: TMenuItem;
     Fechar1: TMenuItem;
-    Abrir: TOpenPictureDialog;
     Image1: TImage;
     Panel1: TPanel;
+    SpeedButton1: TSpeedButton;
+    Abrir: TOpenPictureDialog;
     procedure ButtonSalvarClick(Sender: TObject);
     procedure ButtonNovoClick(Sender: TObject);
     procedure btn_CapturarTelaClick(Sender: TObject);
@@ -37,6 +39,7 @@ type
     procedure Fechar1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure SpeedButton1Click(Sender: TObject);
   private
     { Private declarations }
     Solicitacao :  TSolicitacao;
@@ -105,6 +108,7 @@ begin
   Solicitacao.Usuario := EditUsuário.Text;
   Solicitacao.Descricao := EditDescricao.Text;
   Solicitacao.Solicitacao := MemoSolicitacao.Text;
+  Solicitacao.Imagem := edtArquivoAnexo.Text;
 
   if EditUsuário.Text = '' then
   begin
@@ -155,6 +159,20 @@ begin
   EditUsuário.Clear;
   EditDescricao.Clear;
   MemoSolicitacao.Clear;
+end;
+
+procedure TFormSolicitacao.SpeedButton1Click(Sender: TObject);
+var
+  imagem: TJPEGImage;
+begin
+  if Abrir.Execute then
+  begin
+    imagem := TJPEGImage.Create;
+    imagem.LoadFromFile(Abrir.FileName);
+    Image1.Picture.Bitmap.Assign(imagem);
+    edtArquivoAnexo.Text := Abrir.FileName;
+  end;
+
 end;
 
 end.
