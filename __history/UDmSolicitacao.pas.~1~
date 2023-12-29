@@ -1,0 +1,29 @@
+unit UDmSolicitacao;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB, Datasnap.DBClient;
+
+type
+  TDmSolicitacao = class(TDataModule)
+    qSolicitacao: TADOQuery;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DmSolicitacao: TDmSolicitacao;
+
+implementation
+
+uses
+  UConexao;
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+end.

@@ -28,10 +28,11 @@ type
     MainMenu1: TMainMenu;
     Sistema1: TMenuItem;
     Fechar1: TMenuItem;
-    Image1: TImage;
     Panel1: TPanel;
     SpeedButton1: TSpeedButton;
     Abrir: TOpenPictureDialog;
+    Image1: TImage;
+    Button1: TButton;
     procedure ButtonSalvarClick(Sender: TObject);
     procedure ButtonNovoClick(Sender: TObject);
     procedure btn_CapturarTelaClick(Sender: TObject);
@@ -40,11 +41,13 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure SpeedButton1Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
     Solicitacao :  TSolicitacao;
 
     procedure LimparForm;
+    procedure PesquisarSolicitacao;
   public
     { Public declarations }
   end;
@@ -55,7 +58,7 @@ var
 implementation
 
 uses
-  UPrint, UDmLogin;
+  UPrint, UDmLogin, UPesqSolicitacao;
 {$R *.dfm}
 
 
@@ -78,6 +81,16 @@ begin
   form := TCaptura.Create(nil);
   form.ShowModal;
   FreeAndNil(form);
+end;
+
+procedure TFormSolicitacao.Button1Click(Sender: TObject);
+begin
+  FormPesqSolicitacao.ShowModal;
+  if FormPesqSolicitacao.FrmIdSolicitacao > 0 then
+  begin
+    EditId.Text := IntToStr(FormPesqSolicitacao.FrmIdSolicitacao);
+    PesquisarSolicitacao;
+  end;
 end;
 
 procedure TFormSolicitacao.ButtonNovoClick(Sender: TObject);
@@ -107,7 +120,7 @@ begin
 
   Solicitacao.Usuario := EditUsuário.Text;
   Solicitacao.Descricao := EditDescricao.Text;
-  Solicitacao.Solicitacao := MemoSolicitacao.Text;
+  Solicitacao.TextoSolicitacao := MemoSolicitacao.Text;
   Solicitacao.Imagem := edtArquivoAnexo.Text;
 
   if EditUsuário.Text = '' then
@@ -161,6 +174,26 @@ begin
   MemoSolicitacao.Clear;
 end;
 
+procedure TFormSolicitacao.PesquisarSolicitacao;
+begin
+  if EditId.Text <> '' then
+  begin
+    Solicitacao := TSolicitacao.Create;
+    Solicitacao.Id := StrToInt(EditId.Text);
+
+    if Solicitacao.Pesquisar then
+    begin
+      EditUsuário.Text := Solicitacao.Usuario;
+      EditDescricao.Text := Solicitacao.Descricao;
+      MemoSolicitacao.Text := Solicitacao.TextoSolicitacao;
+      edtArquivoAnexo.Text := Solicitacao.Imagem;
+      Image1.Picture.LoadFromFile(edtArquivoAnexo.Text);
+    end;
+
+    Solicitacao.Free;
+  end;
+end;
+
 procedure TFormSolicitacao.SpeedButton1Click(Sender: TObject);
 var
   imagem: TJPEGImage;
@@ -172,6 +205,11 @@ begin
     Image1.Picture.Bitmap.Assign(imagem);
     edtArquivoAnexo.Text := Abrir.FileName;
   end;
+
+//  if Abrir.Execute then
+//    if FileExists(Abrir.FileName) then
+//      Image1.Picture.LoadFromFile(edtArquivoAnexo.Text);
+//    raise Exception.Create('Não foi possível abrir o arquivo');
 
 end;
 

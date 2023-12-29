@@ -8,6 +8,13 @@ uses
 type
   TDmSolicitacao = class(TDataModule)
     qSolicitacao: TADOQuery;
+    qPesqSolicitacao: TADOQuery;
+    dsPesqSolicitacao: TDataSource;
+    qPesqSolicitacaoUsuario: TStringField;
+    qPesqSolicitacaoIDSolicitacao: TIntegerField;
+    qPesqSolicitacaoDescricao_Solicitacao: TStringField;
+    qPesqSolicitacaoTexto_Solicitacao: TStringField;
+    qPesqSolicitacaoImagem: TStringField;
   private
     { Private declarations }
   public

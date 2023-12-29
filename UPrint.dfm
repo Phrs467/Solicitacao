@@ -83,12 +83,12 @@ object Captura: TCaptura
     Left = 544
     Top = 168
   end
-  object SaveDialog1: TSaveDialog
-    Filter = 'Bitmap|.bmp'
-    Left = 544
-    Top = 232
-  end
   object SavePictureDialog1: TSavePictureDialog
+    Filter = 
+      'JPEG graphics from DevExpress (*.jpg)|*.jpg|JPEG graphics from D' +
+      'evExpress (*.jpeg)|*.jpeg|JPEG Image File (*.jpg)|*.jpg|JPEG Ima' +
+      'ge File (*.jpeg)|*.jpeg|Bitmaps (*.bmp)|*.bmp|JPEG Images (*.jpg' +
+      ')|*.jpg|JPEG Images (*.jpeg)|*.jpeg'
     Left = 632
     Top = 112
   end

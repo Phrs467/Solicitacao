@@ -13,7 +13,6 @@ type
     Button1: TButton;
     TimerContagem: TTimer;
     Label1: TLabel;
-    SaveDialog1: TSaveDialog;
     btn_SalvarImg: TButton;
     SavePictureDialog1: TSavePictureDialog;
     procedure Button1Click(Sender: TObject);
@@ -54,16 +53,20 @@ end;
 
 procedure TCaptura.btn_SalvarImgClick(Sender: TObject);
 begin
-  // Exibe o diálogo de salvamento
-  if SaveDialog1.Execute then
-  begin
-    // Verifica se a extensão do arquivo é válida e a adiciona, se necessário
-    if ExtractFileExt(SaveDialog1.FileName) = '' then
-      SaveDialog1.FileName := SaveDialog1.FileName + '.bmp'; // Você pode escolher o formato desejado aqui
+//  // Exibe o diálogo de salvamento
+//  if SaveDialog1.Execute then
+//  begin
+//    // Verifica se a extensão do arquivo é válida e a adiciona, se necessário
+//    if ExtractFileExt(SaveDialog1.FileName) = '' then
+//      SaveDialog1.FileName := SaveDialog1.FileName + '.bmp'; // Você pode escolher o formato desejado aqui
+//
+//    // Salva a imagem do TImage no arquivo especificado
+//    Image1.Picture.Bitmap.SaveToFile(SaveDialog1.FileName);
+//  end;
 
-    // Salva a imagem do TImage no arquivo especificado
-    Image1.Picture.Bitmap.SaveToFile(SaveDialog1.FileName);
-  end;
+   if SavePictureDialog1.Execute then
+     Image1.Picture.SaveToFile(SavePictureDialog1.FileName + '.jpg');
+
 end;
 
 procedure TCaptura.CapturarCursor(ACanvas: TCanvas; Posicao: TPoint);

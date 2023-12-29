@@ -8,7 +8,8 @@ uses
   UPrincipal in 'UPrincipal.pas' {FormSolicitacao},
   UPrint in 'UPrint.pas' {Captura},
   USolicitacao in 'USolicitacao.pas',
-  UTelaLogin in 'UTelaLogin.pas' {FormLogin};
+  UTelaLogin in 'UTelaLogin.pas' {FormLogin},
+  UPesqSolicitacao in 'UPesqSolicitacao.pas' {Form1};
 
 {$R *.res}
 
@@ -21,5 +22,6 @@ begin
   Application.CreateForm(TFormLogin, FormLogin);
   Application.CreateForm(TFormSolicitacao, FormSolicitacao);
   Application.CreateForm(TCaptura, Captura);
+  Application.CreateForm(TForm1, Form1);
   Application.Run;
 end.
